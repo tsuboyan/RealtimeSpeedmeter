@@ -19,10 +19,14 @@ struct SpeedmeterView: View {
     
     var body: some View {
         VStack {
-            Text("\(state.accelerationY)")
-                .onAppear {
-                    presenter.onAppear()
-                }
+            HStack {
+                Text("acceleration Y: ")
+                Text("\(state.accelerationY)")
+            }
+            HStack {
+                Text("speed Y: ") 
+                Text("\(state.speedYKM * 100)")
+            }
             HStack {
                 Button("Start", action: {
                     presenter.onTapStart()
@@ -34,6 +38,9 @@ struct SpeedmeterView: View {
             }
         }
         .padding()
+        .onAppear {
+            presenter.onAppear()
+        }
     }
 }
 

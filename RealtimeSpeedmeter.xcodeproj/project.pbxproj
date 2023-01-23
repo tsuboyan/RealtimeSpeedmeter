@@ -13,6 +13,7 @@
 		1C90D383297EC49E00112BBC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C90D382297EC49E00112BBC /* Preview Assets.xcassets */; };
 		1C90D38A297ED31300112BBC /* SpeedmeterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D389297ED31300112BBC /* SpeedmeterPresenter.swift */; };
 		1C90D38C297ED4CA00112BBC /* AccelerationSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */; };
+		1C90D38E297EE7C100112BBC /* SpeedCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		1C90D382297EC49E00112BBC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1C90D389297ED31300112BBC /* SpeedmeterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterPresenter.swift; sourceTree = "<group>"; };
 		1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationSensor.swift; sourceTree = "<group>"; };
+		1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedCalculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			children = (
 				1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */,
 				1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */,
+				1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */,
 				1C90D389297ED31300112BBC /* SpeedmeterPresenter.swift */,
 				1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */,
 				1C90D37F297EC49E00112BBC /* Assets.xcassets */,
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C90D37E297EC49D00112BBC /* SpeedmeterView.swift in Sources */,
+				1C90D38E297EE7C100112BBC /* SpeedCalculator.swift in Sources */,
 				1C90D38A297ED31300112BBC /* SpeedmeterPresenter.swift in Sources */,
 				1C90D37C297EC49D00112BBC /* RealtimeSpeedmeterApp.swift in Sources */,
 				1C90D38C297ED4CA00112BBC /* AccelerationSensor.swift in Sources */,

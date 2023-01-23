@@ -12,9 +12,9 @@ final class AccelerationSensor {
     private let motionManager: CMMotionManager
     let updateMotion = PassthroughSubject<CMDeviceMotion, Never>()
     
-    init() {
+    init(delta: Double) {
         motionManager = CMMotionManager()
-        motionManager.deviceMotionUpdateInterval = 0.1 // sec
+        motionManager.deviceMotionUpdateInterval = delta // sec
     }
     
     func startAccelerometer() {
