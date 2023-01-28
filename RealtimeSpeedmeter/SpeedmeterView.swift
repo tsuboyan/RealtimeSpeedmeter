@@ -19,14 +19,25 @@ struct SpeedmeterView: View {
     
     var body: some View {
         VStack {
+            Spacer().frame(height: 32)
             HStack {
-                Text("acceleration Y: ")
-                Text("\(state.accelerationY)")
+                VStack {
+                    Gauge(value: state.speedKiloMeter, in: 0...20) {} currentValueLabel: {
+                        Text("\(String(format: "%.1f", state.speedKiloMeter))")
+                    }.gaugeStyle(SpeedometerGaugeStyle(unit: "KM/H"))
+                    Text("速度 (acc)")
+                }
+                Spacer()
+                VStack {
+                    Gauge(value: abs(state.acc), in: 0...1) {} currentValueLabel: {
+                        Text("\(String(format: "%.2f", state.acc))")
+                    }.gaugeStyle(SpeedometerGaugeStyle(unit: "ACC"))
+                    Text("加速度")
+                }
             }
-            HStack {
-                Text("speed Y: ") 
-                Text("\(state.speedYKM * 100)")
-            }
+            .padding()
+            if state.stopping { Text("停止中") }
+            Spacer()
             HStack {
                 Button("Start", action: {
                     presenter.onTapStart()
@@ -35,7 +46,11 @@ struct SpeedmeterView: View {
                 Button("Stop", action: {
                     presenter.onTapStop()
                 }).buttonStyle(.borderedProminent)
+                Button("Reset", action: {
+                    presenter.onTapReset()
+                }).buttonStyle(.borderedProminent)
             }
+            Spacer().frame(height: 32)
         }
         .padding()
         .onAppear {

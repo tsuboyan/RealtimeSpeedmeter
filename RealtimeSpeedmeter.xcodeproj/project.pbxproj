@@ -14,7 +14,7 @@
 		1C90D38A297ED31300112BBC /* SpeedmeterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D389297ED31300112BBC /* SpeedmeterPresenter.swift */; };
 		1C90D38C297ED4CA00112BBC /* AccelerationSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */; };
 		1C90D38E297EE7C100112BBC /* SpeedCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */; };
-		D770326F29815FBE0042B63F /* SpeedmeterParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770326E29815FBE0042B63F /* SpeedmeterParts.swift */; };
+		1C90D3902984AA5000112BBC /* SpeedmeterGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D38F2984AA5000112BBC /* SpeedmeterGaugeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,7 @@
 		1C90D389297ED31300112BBC /* SpeedmeterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterPresenter.swift; sourceTree = "<group>"; };
 		1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationSensor.swift; sourceTree = "<group>"; };
 		1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedCalculator.swift; sourceTree = "<group>"; };
-		D770326E29815FBE0042B63F /* SpeedmeterParts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterParts.swift; sourceTree = "<group>"; };
+		1C90D38F2984AA5000112BBC /* SpeedmeterGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterGaugeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,14 +59,14 @@
 		1C90D37A297EC49D00112BBC /* RealtimeSpeedmeter */ = {
 			isa = PBXGroup;
 			children = (
-				1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */,
 				1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */,
+				1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */,
 				1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */,
 				1C90D389297ED31300112BBC /* SpeedmeterPresenter.swift */,
 				1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */,
+				1C90D38F2984AA5000112BBC /* SpeedmeterGaugeView.swift */,
 				1C90D37F297EC49E00112BBC /* Assets.xcassets */,
 				1C90D381297EC49E00112BBC /* Preview Content */,
-				D770326E29815FBE0042B63F /* SpeedmeterParts.swift */,
 			);
 			path = RealtimeSpeedmeter;
 			sourceTree = "<group>";
@@ -149,7 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D770326F29815FBE0042B63F /* SpeedmeterParts.swift in Sources */,
+				1C90D3902984AA5000112BBC /* SpeedmeterGaugeView.swift in Sources */,
 				1C90D37E297EC49D00112BBC /* SpeedmeterView.swift in Sources */,
 				1C90D38E297EE7C100112BBC /* SpeedCalculator.swift in Sources */,
 				1C90D38A297ED31300112BBC /* SpeedmeterPresenter.swift in Sources */,
