@@ -22,10 +22,10 @@ struct SpeedmeterView: View {
             Spacer().frame(height: 32)
             HStack {
                 VStack {
-                    Gauge(value: state.speedKiloMeter, in: 0...20) {} currentValueLabel: {
-                        Text("\(String(format: "%.1f", state.speedKiloMeter))")
+                    Gauge(value: state.speedAccKiloMeter, in: 0...20) {} currentValueLabel: {
+                        Text("\(String(format: "%.1f", state.speedAccKiloMeter))")
                     }.gaugeStyle(SpeedometerGaugeStyle(unit: "KM/H"))
-                    Text("速度 (acc)")
+                    Text("速度 (ACC)")
                 }
                 Spacer()
                 VStack {
@@ -34,6 +34,16 @@ struct SpeedmeterView: View {
                     }.gaugeStyle(SpeedometerGaugeStyle(unit: "ACC"))
                     Text("加速度")
                 }
+            }
+            .padding()
+            HStack {
+                VStack {
+                    Gauge(value: state.speedGpsKiloMeter, in: 0...20) {} currentValueLabel: {
+                        Text("\(String(format: "%.1f", state.speedGpsKiloMeter))")
+                    }.gaugeStyle(SpeedometerGaugeStyle(unit: "KM/H"))
+                    Text("速度 (GPS)")
+                }
+                Spacer()
             }
             .padding()
             if state.stopping { Text("停止中") }

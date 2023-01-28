@@ -10,12 +10,18 @@ import Foundation
 
 @MainActor final class SpeedmeterViewState: ObservableObject {
     @Published var acc: Double = 0
-    @Published var speed: Double = 0
+    @Published var speedAcc: Double = 0
+    @Published var speedGps: Double = 0
     
-    var speedKiloMeter: Double {
-        abs(speed * 60)
+    var speedAccKiloMeter: Double {
+        abs(speedAcc * 60) * 3.6
     }
     
+    var speedGpsKiloMeter: Double {
+        speedGps * 3.6
+    }
+    
+    // FIXME: デバッグ用途なので後で消す
     var stopping: Bool {
         acc < 0.005
     }
@@ -24,21 +30,29 @@ import Foundation
 @MainActor final class SpeedmeterPresenter {
     let fps: Double = 30
     let accThresh: Double = 0.01 // この加速度以上であれば速度を計算する (ドリフト防止)
-    let stoppingThresh: Double = 0.005 // この加速度以下の状態が stoppingResetInterval 秒間続くと速度をリセットする (ドリフト防止)
-    let stoppingResetInterval: Double = 5.0
-    let sensor: AccelerationSensor
+    let stoppingThresh: Double = 0.01 // この加速度以下の状態が stoppingResetInterval 秒間続くと速度をリセットする (ドリフト防止)
+    let stoppingResetInterval: Double = 3.0
+    let accSensor: AccelerationSensor
+    let gpsSensor: GpsSensor
     let state: SpeedmeterViewState
     private var smoothedHorizontalAcc: Double = 0
     private var stoppingCounter: Int = 0
     private var cancellables: Set<AnyCancellable> = []
     
     init(state: SpeedmeterViewState) {
-        sensor = AccelerationSensor(delta: 1 / fps)
+        accSensor = AccelerationSensor(delta: 1 / fps)
+        gpsSensor = GpsSensor()
         self.state = state
     }
     
     func onAppear() {
-        sensor.updateMotion.receive(on: RunLoop.main).sink(receiveValue: { [weak self] motion in
+        gpsSensor.requestAuthorize()
+        
+        gpsSensor.updateLocation.receive(on: RunLoop.main).sink(receiveValue: { [weak self] location in
+            self?.state.speedGps = location.speed
+        }).store(in: &cancellables)
+        
+        accSensor.updateMotion.receive(on: RunLoop.main).sink(receiveValue: { [weak self] motion in
             guard let strongSelf = self else { return }
             let ax = motion.userAcceleration.x
             let ay = motion.userAcceleration.y
@@ -48,7 +62,7 @@ import Foundation
             
             let horizontalAcc = SpeedCalculator.calculateHorizontalComponent(x: ax, y: ay, z: az, roll: roll, pitch: pitch)
             strongSelf.state.acc = SpeedCalculator.smooth(current: horizontalAcc, previous: strongSelf.smoothedHorizontalAcc)
-            strongSelf.state.speed = SpeedCalculator.calculateSpeed(currentSpeed: strongSelf.state.speed,
+            strongSelf.state.speedAcc = SpeedCalculator.calculateSpeed(currentSpeed: strongSelf.state.speedAcc,
                                                                     acc: strongSelf.state.acc,
                                                                     delta: 1 / strongSelf.fps,
                                                                     accThresh: strongSelf.accThresh)
@@ -59,22 +73,24 @@ import Foundation
                 strongSelf.stoppingCounter = 0
             }
             if strongSelf.stoppingCounter > Int(strongSelf.fps * strongSelf.stoppingResetInterval) {
-                strongSelf.state.speed = 0
+                strongSelf.state.speedAcc = 0
                 strongSelf.stoppingCounter = 0
             }
         }).store(in: &cancellables)
     }
     
     func onTapStart() {
-        sensor.startAccelerometer()
+        accSensor.startAccelerometer()
+        gpsSensor.startGpsSensor()
     }
     
     func onTapStop() {
-        state.speed = 0
-        sensor.stopAccelerometer()
+        state.speedAcc = 0
+        accSensor.stopAccelerometer()
+        gpsSensor.stopGpsSensor()
     }
     
     func onTapReset() {
-        state.speed = 0
+        state.speedAcc = 0
     }
 }
