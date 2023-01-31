@@ -29,8 +29,8 @@ struct SpeedmeterView: View {
                 }
                 Spacer()
                 VStack {
-                    Gauge(value: abs(state.acc), in: 0...1) {} currentValueLabel: {
-                        Text("\(String(format: "%.2f", state.acc))")
+                    Gauge(value: abs(state.accHorizontalSmoothed), in: 0...1) {} currentValueLabel: {
+                        Text("\(String(format: "%.2f", state.accHorizontalSmoothed))")
                     }.gaugeStyle(SpeedometerGaugeStyle(unit: "ACC"))
                     Text("加速度")
                 }
@@ -56,6 +56,7 @@ struct SpeedmeterView: View {
                 Button("Stop", action: {
                     presenter.onTapStop()
                 }).buttonStyle(.borderedProminent)
+                Spacer().frame(width: 20)
                 Button("Reset", action: {
                     presenter.onTapReset()
                 }).buttonStyle(.borderedProminent)

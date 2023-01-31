@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 @MainActor final class SpeedmeterViewState: ObservableObject {
-    @Published var acc: Double = 0
+    @Published var accHorizontalSmoothed: Double = 0
     @Published var speedAcc: Double = 0
     @Published var speedGps: Double = 0
     
@@ -18,12 +18,12 @@ import Foundation
     }
     
     var speedGpsKiloMeter: Double {
-        speedGps * 3.6
+        speedGps < 0 ? 0 : (speedGps * 3.6)
     }
     
     // FIXME: デバッグ用途なので後で消す
     var stopping: Bool {
-        acc < 0.005
+        accHorizontalSmoothed < 0.005
     }
 }
 
@@ -35,7 +35,7 @@ import Foundation
     let accSensor: AccelerationSensor
     let gpsSensor: GpsSensor
     let state: SpeedmeterViewState
-    private var smoothedHorizontalAcc: Double = 0
+    private var updatedDate = Date()
     private var stoppingCounter: Int = 0
     private var cancellables: Set<AnyCancellable> = []
     
@@ -64,13 +64,15 @@ import Foundation
             let pitch = motion.attitude.pitch
             
             let horizontalAcc = SpeedCalculator.calculateHorizontalComponent(x: ax, y: ay, z: az, roll: roll, pitch: pitch)
-            strongSelf.state.acc = SpeedCalculator.smooth(current: horizontalAcc, previous: strongSelf.smoothedHorizontalAcc)
+            strongSelf.state.accHorizontalSmoothed = SpeedCalculator.smooth(current: horizontalAcc, previous: strongSelf.state.accHorizontalSmoothed)
+            
+            let elapsedTime = Date().timeIntervalSince(strongSelf.updatedDate)
             strongSelf.state.speedAcc = SpeedCalculator.calculateSpeed(currentSpeed: strongSelf.state.speedAcc,
-                                                                    acc: strongSelf.state.acc,
-                                                                    delta: 1 / strongSelf.fps,
+                                                                    acc: strongSelf.state.accHorizontalSmoothed,
+                                                                    delta: elapsedTime,
                                                                     accThresh: strongSelf.accThresh)
             // 一定秒数秒間acc≒0が続いたら停止しているとみなしてリセット
-            if strongSelf.state.acc < strongSelf.stoppingThresh {
+            if strongSelf.state.accHorizontalSmoothed < strongSelf.stoppingThresh {
                 strongSelf.stoppingCounter += 1
             } else {
                 strongSelf.stoppingCounter = 0
@@ -80,8 +82,9 @@ import Foundation
                 strongSelf.stoppingCounter = 0
             }
             
-            let log = "\n\(Date().description), \(ax), \(ay), \(az), \(roll), \(pitch), \(horizontalAcc), \(strongSelf.state.acc), \(strongSelf.state.speedAccKiloMeter), \(strongSelf.state.speedGpsKiloMeter), \(strongSelf.stoppingCounter)"
+            let log = "\n\(Date().description), \(ax), \(ay), \(az), \(roll), \(pitch), \(horizontalAcc), \(strongSelf.state.accHorizontalSmoothed), \(strongSelf.state.speedAccKiloMeter), \(strongSelf.state.speedGpsKiloMeter), \(strongSelf.stoppingCounter)"
             strongSelf.csvData += log
+            strongSelf.updatedDate = Date()
         }).store(in: &cancellables)
     }
     
