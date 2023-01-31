@@ -16,9 +16,11 @@
 		1C90D38E297EE7C100112BBC /* SpeedCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */; };
 		1C90D3902984AA5000112BBC /* SpeedmeterGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D38F2984AA5000112BBC /* SpeedmeterGaugeView.swift */; };
 		1C90D3922985208200112BBC /* GpsSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D3912985208200112BBC /* GpsSensor.swift */; };
+		1C90D3942985471F00112BBC /* CSVService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D3932985471F00112BBC /* CSVService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C5F6DC929856A200061E5FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1C90D378297EC49D00112BBC /* RealtimeSpeedmeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealtimeSpeedmeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeSpeedmeterApp.swift; sourceTree = "<group>"; };
 		1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterView.swift; sourceTree = "<group>"; };
@@ -29,6 +31,7 @@
 		1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedCalculator.swift; sourceTree = "<group>"; };
 		1C90D38F2984AA5000112BBC /* SpeedmeterGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterGaugeView.swift; sourceTree = "<group>"; };
 		1C90D3912985208200112BBC /* GpsSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpsSensor.swift; sourceTree = "<group>"; };
+		1C90D3932985471F00112BBC /* CSVService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,7 @@
 		1C90D37A297EC49D00112BBC /* RealtimeSpeedmeter */ = {
 			isa = PBXGroup;
 			children = (
+				1C5F6DC929856A200061E5FE /* Info.plist */,
 				1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */,
 				1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */,
 				1C90D3912985208200112BBC /* GpsSensor.swift */,
@@ -70,6 +74,7 @@
 				1C90D38F2984AA5000112BBC /* SpeedmeterGaugeView.swift */,
 				1C90D37F297EC49E00112BBC /* Assets.xcassets */,
 				1C90D381297EC49E00112BBC /* Preview Content */,
+				1C90D3932985471F00112BBC /* CSVService.swift */,
 			);
 			path = RealtimeSpeedmeter;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C90D3942985471F00112BBC /* CSVService.swift in Sources */,
 				1C90D3902984AA5000112BBC /* SpeedmeterGaugeView.swift in Sources */,
 				1C90D37E297EC49D00112BBC /* SpeedmeterView.swift in Sources */,
 				1C90D38E297EE7C100112BBC /* SpeedCalculator.swift in Sources */,
@@ -292,6 +298,8 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = W9QV9753NK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RealtimeSpeedmeter/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "スピードの計測のために利用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -324,6 +332,8 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RealtimeSpeedmeter/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "スピードの計測のために利用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

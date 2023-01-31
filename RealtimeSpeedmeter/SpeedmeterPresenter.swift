@@ -39,6 +39,9 @@ import Foundation
     private var stoppingCounter: Int = 0
     private var cancellables: Set<AnyCancellable> = []
     
+    let csvService = CSVService()
+    var csvData = "time, ax, ay, az, roll, pitch, HorizontalAcc, SmoothedAcc, SpeedACC, SpeedGPS, StoppingCounter"
+    
     init(state: SpeedmeterViewState) {
         accSensor = AccelerationSensor(delta: 1 / fps)
         gpsSensor = GpsSensor()
@@ -76,6 +79,9 @@ import Foundation
                 strongSelf.state.speedAcc = 0
                 strongSelf.stoppingCounter = 0
             }
+            
+            let log = "\n\(Date().description), \(ax), \(ay), \(az), \(roll), \(pitch), \(horizontalAcc), \(strongSelf.state.acc), \(strongSelf.state.speedAccKiloMeter), \(strongSelf.state.speedGpsKiloMeter), \(strongSelf.stoppingCounter)"
+            strongSelf.csvData += log
         }).store(in: &cancellables)
     }
     
@@ -88,6 +94,7 @@ import Foundation
         state.speedAcc = 0
         accSensor.stopAccelerometer()
         gpsSensor.stopGpsSensor()
+        csvService.saveCSV(dataStr: csvData)
     }
     
     func onTapReset() {
