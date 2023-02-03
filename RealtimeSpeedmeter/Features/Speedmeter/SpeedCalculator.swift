@@ -9,8 +9,9 @@ import Foundation
 
 struct SpeedCalculator {
     static func calculateSpeed(currentSpeed: Double, acc: Double, delta: Double, accThresh: Double) -> Double {
+        let gravitationalAcceleration = 9.80665
         // ドリフト防止のため、加速度が閾値より大きい間だけ速度を更新する
-        abs(acc) > accThresh ? (currentSpeed + (acc * delta)) : currentSpeed
+        return abs(acc) > accThresh ? (currentSpeed + (acc * delta * gravitationalAcceleration)) : currentSpeed
     }
     
     /// 3軸成分から水平1軸成分のみを取り出す
@@ -48,7 +49,7 @@ struct SpeedCalculator {
         return horizontalComponent * (z > 0 ? 1 : -1)
     }
     
-    // 平滑化フィルタ
+    /// 平滑化フィルタ
     static func smooth(current: Double, previous: Double) -> Double {
         current * 0.2 + previous * 0.8
     }

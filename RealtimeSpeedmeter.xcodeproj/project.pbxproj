@@ -45,6 +45,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C5F6DCA298956640061E5FE /* Sensors */ = {
+			isa = PBXGroup;
+			children = (
+				1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */,
+				1C90D3912985208200112BBC /* GpsSensor.swift */,
+			);
+			path = Sensors;
+			sourceTree = "<group>";
+		};
+		1C5F6DCB298956950061E5FE /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				1C5F6DCD298956E30061E5FE /* Debug */,
+				1C5F6DCC298956B80061E5FE /* Speedmeter */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		1C5F6DCC298956B80061E5FE /* Speedmeter */ = {
+			isa = PBXGroup;
+			children = (
+				1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */,
+				1C90D389297ED31300112BBC /* SpeedmeterPresenter.swift */,
+				1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */,
+				1C90D38F2984AA5000112BBC /* SpeedmeterGaugeView.swift */,
+			);
+			path = Speedmeter;
+			sourceTree = "<group>";
+		};
+		1C5F6DCD298956E30061E5FE /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
 		1C90D36F297EC49C00112BBC = {
 			isa = PBXGroup;
 			children = (
@@ -64,17 +100,13 @@
 		1C90D37A297EC49D00112BBC /* RealtimeSpeedmeter */ = {
 			isa = PBXGroup;
 			children = (
-				1C5F6DC929856A200061E5FE /* Info.plist */,
 				1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */,
-				1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */,
-				1C90D3912985208200112BBC /* GpsSensor.swift */,
-				1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */,
-				1C90D389297ED31300112BBC /* SpeedmeterPresenter.swift */,
-				1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */,
-				1C90D38F2984AA5000112BBC /* SpeedmeterGaugeView.swift */,
+				1C90D3932985471F00112BBC /* CSVService.swift */,
+				1C5F6DCB298956950061E5FE /* Features */,
+				1C5F6DCA298956640061E5FE /* Sensors */,
+				1C5F6DC929856A200061E5FE /* Info.plist */,
 				1C90D37F297EC49E00112BBC /* Assets.xcassets */,
 				1C90D381297EC49E00112BBC /* Preview Content */,
-				1C90D3932985471F00112BBC /* CSVService.swift */,
 			);
 			path = RealtimeSpeedmeter;
 			sourceTree = "<group>";

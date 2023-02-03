@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct SpeedmeterGaugeView: View {
-    @State private var currentSpeed = 2.0
+    @State private var currentSpeed = 80.0
  
     var body: some View {
-        Gauge(value: currentSpeed, in: 0...20) {
+        VStack {
+            Spacer().frame(height: 20)
+        
+        Gauge(value: currentSpeed, in: 0...100) {
 //            Image(systemName: "gauge.medium")
 //                .font(.system(size: 50.0))
         } currentValueLabel: {
             Text("\(currentSpeed.formatted(.number))")
         }
         .gaugeStyle(SpeedometerGaugeStyle(unit: "KM/H"))
- 
+            Spacer()
+        }
     }
 }
 

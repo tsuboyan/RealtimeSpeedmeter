@@ -14,11 +14,11 @@ import Foundation
     @Published var speedGps: Double = 0
     
     var speedAccKiloMeter: Double {
-        abs(speedAcc * 60) * 3.6
+        abs(speedAcc) * 3.6
     }
     
     var speedGpsKiloMeter: Double {
-        speedGps < 0 ? 0 : (speedGps * 3.6)
+        speedGps > 0 ? (speedGps * 3.6) : 0
     }
     
     // FIXME: デバッグ用途なので後で消す
@@ -72,7 +72,7 @@ import Foundation
                                                                     delta: elapsedTime,
                                                                     accThresh: strongSelf.accThresh)
             // 一定秒数秒間acc≒0が続いたら停止しているとみなしてリセット
-            if strongSelf.state.accHorizontalSmoothed < strongSelf.stoppingThresh {
+            if abs(strongSelf.state.accHorizontalSmoothed) < strongSelf.stoppingThresh {
                 strongSelf.stoppingCounter += 1
             } else {
                 strongSelf.stoppingCounter = 0
