@@ -57,7 +57,6 @@
 		1C5F6DCB298956950061E5FE /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				1C5F6DCD298956E30061E5FE /* Debug */,
 				1C5F6DCC298956B80061E5FE /* Speedmeter */,
 			);
 			path = Features;
@@ -72,13 +71,6 @@
 				1C90D38F2984AA5000112BBC /* SpeedmeterGaugeView.swift */,
 			);
 			path = Speedmeter;
-			sourceTree = "<group>";
-		};
-		1C5F6DCD298956E30061E5FE /* Debug */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Debug;
 			sourceTree = "<group>";
 		};
 		1C90D36F297EC49C00112BBC = {
