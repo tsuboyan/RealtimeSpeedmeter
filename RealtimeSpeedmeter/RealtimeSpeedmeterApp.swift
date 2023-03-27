@@ -11,7 +11,9 @@ import SwiftUI
 struct RealtimeSpeedmeterApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                SpeedmeterView()
+            }
         }
     }
 }
