@@ -67,7 +67,7 @@ struct SpeedometerGaugeStyle: GaugeStyle {
                 Button {
                     reset?()
                 } label: {
-                    Text("Reset")
+                    Text("set to 0")
                 }
             }
  
