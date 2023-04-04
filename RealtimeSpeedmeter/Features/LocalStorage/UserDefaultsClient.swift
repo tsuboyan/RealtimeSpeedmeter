@@ -34,10 +34,9 @@ extension UserDefaultsClient {
     
     static var maximumSpeed: Int {
         get {
-            let defaultMaximumSpeed = 30
             // integer(forKey: .maximumSpeed) はdefaultで0を返す
             let value = integer(forKey: .maximumSpeed)
-            return value == 0 ? defaultMaximumSpeed : value
+            return value == 0 ? Constants.defaultMaximumSpeed : value
         }
         set {
             set(value: newValue, forKey: .maximumSpeed)

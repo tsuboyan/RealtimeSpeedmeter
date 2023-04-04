@@ -24,15 +24,6 @@ struct GpsParams {
 }
 
 final class SpeedmeterUsecase {
-    enum Constants {
-        static let fps: Double = 100
-        /// この加速度以下の状態が stoppingResetInterval 秒間続くと速度をリセットする(ドリフト防止)
-        static let stoppingStdevThresh: Double = 0.01
-        static let stoppingResetInterval: Double = 1.0
-        /// 標準偏差による停止判定用の配列の要素数
-        static let stoppingAccelerationsCapacity = 10
-    }
-    
     enum AccelerationState {
         /// 加速中
         case accelerating

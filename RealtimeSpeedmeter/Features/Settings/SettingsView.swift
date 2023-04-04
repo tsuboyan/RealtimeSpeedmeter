@@ -26,13 +26,14 @@ struct SettingsView: View {
                 VStack {
                     Text("アナログメーターの最高速度: \(Int(presenter.state.maximumSpeed)) \(presenter.state.unit.name)")
                     HStack {
-                        Text("20")
+                        Text("\(Int(Constants.maximumSpeedLowerLimit))")
                         Slider(value: Binding(
                             get: { Double(presenter.state.maximumSpeed) },
                             set: { newValue in
                                 presenter.onChangeMaximumSpeed(Int(newValue))
-                            }), in: 20...500, step: 10.0)
-                        Text("500")
+                            }), in: (Constants.maximumSpeedLowerLimit...Constants.maximumSpeedUpperLimit),
+                               step: Constants.maximumSpeedConfigurableInterval)
+                        Text("\(Int(Constants.maximumSpeedUpperLimit))")
                     }
                 }
             }
