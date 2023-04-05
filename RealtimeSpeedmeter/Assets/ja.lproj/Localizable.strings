@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  RealtimeSpeedmeter
+
+  Created by Atsushi Otsubo on 2023/04/05.
+  
+*/
+
+
+"acceleration_title" = "加速度";
+"measurement_method_title" = "計測方法";
+
+"unit_title" = "速度の単位";
+"speedmeter_upper_limit_title" = "スピードメータの上限";
+

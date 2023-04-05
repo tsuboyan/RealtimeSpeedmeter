@@ -25,7 +25,10 @@ import Foundation
         }
         
         var measurementMethod: String {
-            SpeedCalculator.isGpsAvailable(speedmeterItem.gpsSpeed) ? "加速度 + GPS" : "加速度"
+            let accelerationText = String(localized: "acceleration_title")
+            let gpsText = "GPS"
+            return SpeedCalculator.isGpsAvailable(speedmeterItem.gpsSpeed) ?
+            (accelerationText + " + " + gpsText) : accelerationText
         }
     }
     

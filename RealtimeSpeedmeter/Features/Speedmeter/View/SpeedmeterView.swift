@@ -57,7 +57,7 @@ struct SpeedmeterView: View {
             
             HStack(spacing: 8) {
                 VStack(spacing: 8) {
-                    Text("加速度")
+                    Text("acceleration_title")
                         .bold()
                         .font(.title3)
                     Text(String(format: "%.2f G", presenter.state.acceleration))
@@ -67,7 +67,7 @@ struct SpeedmeterView: View {
                 .background(RoundedRectangle(cornerRadius: 6)
                     .fill(Color.gray.opacity(0.2)))
                 VStack(spacing: 8) {
-                    Text("計測方法")
+                    Text("measurement_method_title")
                         .bold()
                         .font(.title3)
                     Text(presenter.state.measurementMethod)
@@ -97,7 +97,6 @@ struct SpeedmeterView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         SpeedmeterView()
-        SpeedmeterGaugeView(maximumSpeed: 100, currentSpeed: 1, unitName: "km/h")
-            .padding()
+            .environment(\.locale, .init(identifier: "ja"))
     }
 }

@@ -17,14 +17,18 @@ struct SettingsView: View {
                     get: { presenter.state.unit.rawValue },
                     set: { newValue in
                         presenter.onChangeUnit(Unit(rawValue: newValue)!)
-                    }), label: Text("速度の単位")) {
+                    }), label: Text("unit_title")) {
                         ForEach(0 ..< Unit.allCases.count, id: \.self) { num in
                             Text(Unit.allCases[num].name)
                         }
                     }
                 
                 VStack {
-                    Text("アナログメーターの最高速度: \(Int(presenter.state.maximumSpeed)) \(presenter.state.unit.name)")
+                    HStack {
+                        Text("speedmeter_upper_limit_title")
+                        Spacer()
+                        Text("\(Int(presenter.state.maximumSpeed)) \(presenter.state.unit.name)")
+                    }
                     HStack {
                         Text("\(Int(Constants.maximumSpeedLowerLimit))")
                         Slider(value: Binding(
