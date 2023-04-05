@@ -14,6 +14,7 @@ import Foundation
         fileprivate(set) var unit: Unit
         fileprivate(set) var maximumSpeed: Int
         fileprivate(set) var isSensorActive = true
+        fileprivate(set) var colorTheme: ColorTheme
         
         var accelerationSpeed: Double {
             let speed = speedmeterItem.accelerationSpeed.convert(to: unit)
@@ -38,7 +39,7 @@ import Foundation
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        state = .init(unit: .kiloPerHour, maximumSpeed: 0)
+        state = .init(unit: .kiloPerHour, maximumSpeed: 0, colorTheme: .auto)
         let accelerationSensor = AccelerationSensor()
         let gpsSensor = GpsSensor()
         usecase = SpeedmeterUsecase(accelerationSensor: accelerationSensor,
@@ -48,6 +49,7 @@ import Foundation
     func onAppear() {
         state.unit = UserDefaultsClient.unit
         state.maximumSpeed = UserDefaultsClient.maximumSpeed
+        state.colorTheme = UserDefaultsClient.colorTheme
         
         usecase.setup()
         usecase.updateSpeedmeter.receive(on: RunLoop.main).sink { [weak self] speedmeterItem in

@@ -11,6 +11,7 @@ enum UserDefaultsClient {
     private enum IntItem: String {
         case unit
         case maximumSpeed
+        case colorTheme
     }
     
     private static func set(value: Int, forKey item: IntItem) {
@@ -40,6 +41,15 @@ extension UserDefaultsClient {
         }
         set {
             set(value: newValue, forKey: .maximumSpeed)
+        }
+    }
+    
+    static var colorTheme: ColorTheme {
+        get {
+            ColorTheme(rawValue: integer(forKey: .colorTheme)) ?? .auto
+        }
+        set {
+            set(value: newValue.rawValue, forKey: .colorTheme)
         }
     }
 }

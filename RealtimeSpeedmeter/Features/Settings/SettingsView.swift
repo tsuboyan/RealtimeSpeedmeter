@@ -16,7 +16,7 @@ struct SettingsView: View {
                 Picker(selection: Binding(
                     get: { presenter.state.unit.rawValue },
                     set: { newValue in
-                        presenter.onChangeUnit(Unit(rawValue: newValue)!)
+                        presenter.onChange(unit: Unit(rawValue: newValue)!)
                     }), label: Text("unit_title")) {
                         ForEach(0 ..< Unit.allCases.count, id: \.self) { num in
                             Text(Unit.allCases[num].name)
@@ -34,12 +34,23 @@ struct SettingsView: View {
                         Slider(value: Binding(
                             get: { Double(presenter.state.maximumSpeed) },
                             set: { newValue in
-                                presenter.onChangeMaximumSpeed(Int(newValue))
+                                presenter.onChange(maximumSpeed: Int(newValue))
                             }), in: (Constants.maximumSpeedLowerLimit...Constants.maximumSpeedUpperLimit),
                                step: Constants.maximumSpeedConfigurableInterval)
                         Text("\(Int(Constants.maximumSpeedUpperLimit))")
                     }
                 }
+                
+                Picker(selection: Binding(
+                    get: { presenter.state.colorTheme.rawValue },
+                    set: { newValue in
+                        presenter.onChange(colorTheme: ColorTheme(rawValue: newValue)!)
+                        
+                    }), label: Text("theme_title")) {
+                        ForEach(0 ..< ColorTheme.allCases.count, id: \.self) { num in
+                            Text(ColorTheme.allCases[num].name)
+                        }
+                    }
             }
         }
     }

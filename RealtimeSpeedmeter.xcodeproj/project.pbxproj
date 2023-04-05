@@ -10,6 +10,7 @@
 		1C5F6DD729990B900061E5FE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F6DD629990B900061E5FE /* SettingsView.swift */; };
 		1C6F0A2B29DC660700DB45B8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F0A2A29DC660700DB45B8 /* Constants.swift */; };
 		1C6F0A2F29DD984700DB45B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3129DD984700DB45B8 /* Localizable.strings */; };
+		1C6F0A3429DDA7D500DB45B8 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3329DDA7D500DB45B8 /* ColorTheme.swift */; };
 		1C90D37C297EC49D00112BBC /* RealtimeSpeedmeterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */; };
 		1C90D37E297EC49D00112BBC /* SpeedmeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */; };
 		1C90D380297EC49E00112BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C90D37F297EC49E00112BBC /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 		1C6F0A2A29DC660700DB45B8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1C6F0A3029DD984700DB45B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1C6F0A3229DD985800DB45B8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1C6F0A3329DDA7D500DB45B8 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		1C90D378297EC49D00112BBC /* RealtimeSpeedmeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealtimeSpeedmeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeSpeedmeterApp.swift; sourceTree = "<group>"; };
 		1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,23 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		1C6F0A3529DDAC7900DB45B8 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				1C6F0A3329DDA7D500DB45B8 /* ColorTheme.swift */,
+				D710621D29B4B06400B21570 /* Unit.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		1C6F0A3629DDAC9F00DB45B8 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				1C6F0A2A29DC660700DB45B8 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		1C90D36F297EC49C00112BBC = {
 			isa = PBXGroup;
 			children = (
@@ -154,8 +173,8 @@
 		D710621B29B4AFAC00B21570 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
-				D710621D29B4B06400B21570 /* Unit.swift */,
-				1C6F0A2A29DC660700DB45B8 /* Constants.swift */,
+				1C6F0A3629DDAC9F00DB45B8 /* Constants */,
+				1C6F0A3529DDAC7900DB45B8 /* Enums */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -275,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C6F0A3429DDA7D500DB45B8 /* ColorTheme.swift in Sources */,
 				D710621E29B4B06400B21570 /* Unit.swift in Sources */,
 				1C90D3942985471F00112BBC /* CSVLogger.swift in Sources */,
 				D72A453A29BA1F6000A34355 /* UserDefaultsClient.swift in Sources */,

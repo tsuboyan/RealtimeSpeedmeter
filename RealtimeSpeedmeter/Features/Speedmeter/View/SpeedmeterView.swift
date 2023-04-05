@@ -84,13 +84,17 @@ struct SpeedmeterView: View {
                 presenter.onAppear()
             }
         
-        return NavigationView {
+        return NavigationStack {
             contents
         }.navigationBarTitle("RealtimeSpeedmeter", displayMode: .inline)
-            .navigationBarItems(
-                trailing: NavigationLink(destination: SettingsView().navigationTitle("Settings")) {
-                    Image(systemName: "gearshape.fill")
-                })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: SettingsView().navigationTitle("Settings")) {
+                        Image(systemName: "gearshape.fill")
+                    }
+                }
+            }
+            .preferredColorScheme(presenter.state.colorTheme.scheme)
     }
 }
 
