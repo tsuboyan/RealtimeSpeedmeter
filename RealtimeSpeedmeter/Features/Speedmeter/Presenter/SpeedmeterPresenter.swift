@@ -17,7 +17,7 @@ import Foundation
         fileprivate(set) var colorTheme: ColorTheme
         
         var accelerationSpeed: Double {
-            let speed = speedmeterItem.accelerationSpeed.convert(to: unit)
+            let speed = speedmeterItem.accelerationSpeed.convertFromMPS(to: unit)
             return abs(speed)
         }
         
@@ -39,7 +39,7 @@ import Foundation
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        state = .init(unit: .kiloPerHour, maximumSpeed: 0, colorTheme: .auto)
+        state = .init(unit: .kilometerPerHour, maximumSpeed: 0, colorTheme: .auto)
         let accelerationSensor = AccelerationSensor()
         let gpsSensor = GpsSensor()
         usecase = SpeedmeterUsecase(accelerationSensor: accelerationSensor,

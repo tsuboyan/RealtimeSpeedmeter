@@ -26,7 +26,7 @@ enum UserDefaultsClient {
 extension UserDefaultsClient {
     static var unit: Unit {
         get {
-            Unit(rawValue: integer(forKey: .unit)) ?? .kiloPerHour
+            Unit(rawValue: integer(forKey: .unit)) ?? .kilometerPerHour
         }
         set {
             set(value: newValue.rawValue, forKey: .unit)

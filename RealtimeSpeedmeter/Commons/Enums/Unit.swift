@@ -8,27 +8,38 @@
 import Foundation
 
 enum Unit: Int, CaseIterable {
-    case kiloPerHour
-    case meterPerSecond
+    /// km/h (kphと意味は同じ)
+    case kilometerSlashHour
+    /// kph (km/hと意味は同じ)
+    case kilometerPerHour
+    /// mph
+    case milePerHour
+    /// knot
+    case knot
+    /// m/s
+    case meterSlashSecond
     
     var name: String {
         switch self {
-        case .kiloPerHour: return "km/h"
-        case .meterPerSecond: return "m/s"
+        case .kilometerSlashHour: return "km/h"
+        case .kilometerPerHour: return "kph"
+        case .milePerHour: return "mph"
+        case .knot: return "kn"
+        case .meterSlashSecond: return "m/s"
         }
     }
 }
 
 extension Double {
     /// 速度の単位変換
-    func convert(to: Unit, from: Unit = .meterPerSecond) -> Double {
-        switch (to, from) {
-        case (.kiloPerHour, .meterPerSecond):
-            return self * 3.6
-        case (.meterPerSecond, .kiloPerHour):
-            return self / 3.6
+    func convertFromMPS(to unit: Unit) -> Double {
+        switch unit {
+        case .kilometerPerHour, .kilometerSlashHour: return self * 3.6
+        case .milePerHour: return self * 2.237
+        case .knot: return self * 1.944
         default:
             return self
         }
     }
+    
 }
