@@ -64,6 +64,8 @@ import UIKit
         
         // Speedmeter画面表示時はスリープにしない
         UIApplication.shared.isIdleTimerDisabled = true
+        
+        UserDefaultsClient.incrementNumberOfSpeedmeterDisplayed()
     }
     
     func onDisappear() {

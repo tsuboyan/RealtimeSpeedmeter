@@ -12,6 +12,7 @@ enum UserDefaultsClient {
         case unit
         case maximumSpeed
         case colorTheme
+        case numberOfSpeedmeterDisplayed
     }
     
     private static func set(value: Int, forKey item: IntItem) {
@@ -51,5 +52,16 @@ extension UserDefaultsClient {
         set {
             set(value: newValue.rawValue, forKey: .colorTheme)
         }
+    }
+    
+    static var isFirstDisplayed: Bool {
+        let numberOfSpeedmeterDisplayed = integer(forKey: .numberOfSpeedmeterDisplayed)
+        return numberOfSpeedmeterDisplayed == 0
+    }
+    
+    static func incrementNumberOfSpeedmeterDisplayed() {
+        let numberOfSpeedmeterDisplayed = integer(forKey: .numberOfSpeedmeterDisplayed)
+        set(value: numberOfSpeedmeterDisplayed + 1,
+            forKey: .numberOfSpeedmeterDisplayed)
     }
 }

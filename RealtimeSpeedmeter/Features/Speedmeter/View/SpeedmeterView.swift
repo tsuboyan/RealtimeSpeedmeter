@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SpeedmeterView: View {
     @ObservedObject private(set) var presenter: SpeedmeterPresenter
+    @State private var showingTutorialAlert = false
     
     init() {
         presenter = SpeedmeterPresenter()
@@ -93,7 +94,10 @@ struct SpeedmeterView: View {
             Spacer()
         }
             .padding()
-            .onAppear { presenter.onAppear() }
+            .onAppear {
+                if UserDefaultsClient.isFirstDisplayed { showingTutorialAlert = true }
+                presenter.onAppear()
+            }
             .onDisappear { presenter.onDisappear() }
         
         return NavigationStack {
@@ -107,6 +111,11 @@ struct SpeedmeterView: View {
                 }
             }
             .preferredColorScheme(presenter.state.colorTheme.scheme)
+            .alert("tutorial_title", isPresented: $showingTutorialAlert) {
+                Button("OK") { showingTutorialAlert = false }
+            } message: {
+                Text("tutorial_message")
+            }
     }
 }
 
