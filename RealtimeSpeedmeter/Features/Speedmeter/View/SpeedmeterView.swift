@@ -76,6 +76,19 @@ struct SpeedmeterView: View {
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 6)
                     .fill(Color.gray.opacity(0.2)))
+                #if DEBUG
+                    VStack(spacing: 8) {
+                        Text("加減速")
+                            .bold()
+                            .font(.title3)
+                        Text(presenter.state.accelerationState)
+                            .font(.body)
+                    }
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 6)
+                        .fill(Color.gray.opacity(0.2)))
+                #endif
+                
             }
             Spacer()
         }

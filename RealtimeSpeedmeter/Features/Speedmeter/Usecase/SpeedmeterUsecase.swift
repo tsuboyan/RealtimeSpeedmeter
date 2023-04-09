@@ -23,22 +23,31 @@ struct GpsParams {
     }
 }
 
-final class SpeedmeterUsecase {
-    enum AccelerationState {
-        /// 加速中
-        case accelerating
-        /// 減速中
-        case decelerating
-        /// 巡航中・停止中
-        case stay
+enum AccelerationState {
+    /// 加速中
+    case accelerating
+    /// 減速中
+    case decelerating
+    /// 巡航中・停止中
+    case stay
+    
+    var name: String {
+        switch self {
+        case .accelerating: return "Ac"
+        case .decelerating: return "De"
+        case .stay: return "Stay"
+        }
     }
+}
+
+final class SpeedmeterUsecase {
     
     let updateSpeedmeter = PassthroughSubject<SpeedmeterItem, Never>()
     
     private let accelerationSensor: AccelerationSensor
     private let gpsSensor: GpsSensor
     
-    private let accelerationParam = CurrentValueSubject<(acceleration: Double, speed: Double), Never>((0, 0))
+    private let accelerationParam = CurrentValueSubject<(acceleration: Double, speed: Double, accState: AccelerationState), Never>((0, 0, .stay))
     private let gpsParamsSubject = CurrentValueSubject<GpsParams, Never>(GpsParams(cllocation: CLLocation()))
     
     /// 標準偏差による停止判定用の配列
@@ -46,6 +55,12 @@ final class SpeedmeterUsecase {
     
     private var updatedDate = Date()
     private var stoppingCounter: Int = 0
+    
+    // 加速度ステート用
+    private var stayingCounter: Int = 0
+    private var accerationCounter: Int = 0
+    private var decelerationCounter: Int = 0
+    
     private var accerationState: AccelerationState = .stay
     
     private var cancellables: Set<AnyCancellable> = []
@@ -68,38 +83,68 @@ final class SpeedmeterUsecase {
             guard let self = self else { return }
             
             let elapsedTime = Date().timeIntervalSince(self.updatedDate)
+            
             let horizontalAcceleration = SpeedCalculator.calculateHorizontalAcceleration(motion)
             self.unsmoothedAccelerationRingArray.append(horizontalAcceleration)
-            
             let isStopping = self.isStopping(accelerationStdev: self.unsmoothedAccelerationRingArray.stdev)
             let acceleration = SpeedCalculator.smooth(current: horizontalAcceleration, previous: self.accelerationParam.value.acceleration)
-            
-            let currentAccelerationSpeed = self.accelerationParam.value.speed
-            
-            let nextAccelerationSpeed = isStopping ? currentAccelerationSpeed : SpeedCalculator.calculateNextSpeed(
-                currentSpeed: currentAccelerationSpeed,
+            let previousAccelerationSpeed = self.accelerationParam.value.speed
+            let accelerationSpeed = isStopping ? previousAccelerationSpeed : SpeedCalculator.calculateSpeed(
+                previousSpeed: previousAccelerationSpeed,
                 acceleration: acceleration,
                 delta: elapsedTime)
             
-            // 加速・減速判定
-            if acceleration > 0.1 { self.accerationState = .accelerating }
-            if acceleration < -0.1 { self.accerationState = .decelerating }
-            if self.accerationState == .accelerating, acceleration < 0 ||
-                self.accerationState == .decelerating, acceleration > 0 { self.accerationState = .stay }
             
-            // 加速はACC・GPSの大きい方、減速中は小さい方の速度を採用する
+            if acceleration > Constants.accelerationStateChangeThresh {
+                if self.accerationCounter > Int(Constants.fps * Constants.stateHoldTime) {
+                    self.accerationState = .accelerating
+                }
+                self.accerationCounter += 1
+                self.decelerationCounter = 0
+                self.stayingCounter = 0
+            }
+            else if acceleration < -1 * Constants.accelerationStateChangeThresh {
+                if self.decelerationCounter > Int(Constants.fps * Constants.stateHoldTime) {
+                    self.accerationState = .decelerating
+                }
+                self.accerationCounter = 0
+                self.decelerationCounter += 1
+                self.stayingCounter = 0
+            }
+            else {
+                if self.stayingCounter > Int(Constants.fps * Constants.stateHoldTime) {
+                    self.accerationState = .stay
+                }
+                self.accerationCounter = 0
+                self.decelerationCounter = 0
+                self.stayingCounter += 1
+            }
+            
+            // 加速度ステートが加速中の時はACC・GPSの大きい方、減速中の時は小さい方の速度を採用する
+            // 加速度の揺れでステートが振動しないように、加速度ステートは指定した時間が経過しないと変化できないようにする
+            
             let mergedSpeed: Double
             switch self.accerationState {
-            case .accelerating, .stay:
-                mergedSpeed = max(nextAccelerationSpeed, self.gpsParamsSubject.value.speed)
+            case .accelerating:
+                if SpeedCalculator.isGpsAvailable(self.gpsParamsSubject.value.speed) {
+                    mergedSpeed = max(accelerationSpeed, self.gpsParamsSubject.value.speed)
+                } else {
+                    mergedSpeed = accelerationSpeed
+                }
             case .decelerating:
                 if SpeedCalculator.isGpsAvailable(self.gpsParamsSubject.value.speed) {
-                    mergedSpeed = min(nextAccelerationSpeed, self.gpsParamsSubject.value.speed)
+                    mergedSpeed = min(accelerationSpeed, self.gpsParamsSubject.value.speed)
                 } else {
-                    mergedSpeed = nextAccelerationSpeed
+                    mergedSpeed = accelerationSpeed
+                }
+            case .stay:
+                if SpeedCalculator.isGpsAvailable(self.gpsParamsSubject.value.speed) {
+                    mergedSpeed = self.gpsParamsSubject.value.speed
+                } else {
+                    mergedSpeed = accelerationSpeed
                 }
             }
-            self.accelerationParam.send((acceleration: acceleration, speed: mergedSpeed))
+            self.accelerationParam.send((acceleration: acceleration, speed: mergedSpeed, accState: self.accerationState))
             
             // 一定秒数間停止していたら速度をリセットする
             if isStopping {
@@ -132,7 +177,9 @@ final class SpeedmeterUsecase {
                     acceleration: accParam.acceleration,
                     accelerationSpeed: accParam.speed,
                     gpsSpeed: gpsParams.speed,
-                    gpsAccuracy: gpsParams.locationAccuracy)
+                    gpsAccuracy: gpsParams.locationAccuracy,
+                    accerationState: accParam.accState
+                )
                 )
             }.store(in: &cancellables)
         
@@ -158,7 +205,7 @@ final class SpeedmeterUsecase {
     
     func reset() {
         let acc = self.accelerationParam.value.acceleration
-        self.accelerationParam.send((acceleration: acc, speed: 0))
+        self.accelerationParam.send((acceleration: acc, speed: 0, accState: .stay))
     }
 }
 

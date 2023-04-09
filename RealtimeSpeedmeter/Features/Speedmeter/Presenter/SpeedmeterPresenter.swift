@@ -31,6 +31,10 @@ import Foundation
             return SpeedCalculator.isGpsAvailable(speedmeterItem.gpsSpeed) ?
             (accelerationText + " + " + gpsText) : accelerationText
         }
+        
+        var accelerationState: String {
+            return speedmeterItem.accerationState.name
+        }
     }
     
     @Published private(set) var state: ViewState
