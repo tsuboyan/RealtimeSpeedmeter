@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import UIKit
 
 @MainActor final class SpeedmeterPresenter: ObservableObject {
     @MainActor struct ViewState  {
@@ -60,6 +61,13 @@ import Foundation
             self?.state.speedmeterItem = speedmeterItem
         }.store(in: &cancellables)
         usecase.start()
+        
+        // Speedmeter画面表示時はスリープにしない
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    func onDisappear() {
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     func onTapStartStop() {

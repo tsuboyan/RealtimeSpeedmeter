@@ -93,9 +93,8 @@ struct SpeedmeterView: View {
             Spacer()
         }
             .padding()
-            .onAppear {
-                presenter.onAppear()
-            }
+            .onAppear { presenter.onAppear() }
+            .onDisappear { presenter.onDisappear() }
         
         return NavigationStack {
             contents
