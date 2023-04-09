@@ -11,22 +11,29 @@ import Foundation
     @MainActor struct ViewState {
         fileprivate(set) var unit: Unit
         fileprivate(set) var maximumSpeed: Int
+        fileprivate(set) var colorTheme: ColorTheme
     }
     
     @Published private(set) var state: ViewState
     
     init() {
         state = .init(unit: UserDefaultsClient.unit,
-                      maximumSpeed: UserDefaultsClient.maximumSpeed)
+                      maximumSpeed: UserDefaultsClient.maximumSpeed,
+                      colorTheme: UserDefaultsClient.colorTheme)
     }
     
-    func onChangeUnit(_ unit: Unit) {
+    func onChange(unit: Unit) {
         state.unit = unit
         UserDefaultsClient.unit = unit
     }
     
-    func onChangeMaximumSpeed(_ speed: Int) {
-        state.maximumSpeed = speed
-        UserDefaultsClient.maximumSpeed = speed
+    func onChange(maximumSpeed: Int) {
+        state.maximumSpeed = maximumSpeed
+        UserDefaultsClient.maximumSpeed = maximumSpeed
+    }
+    
+    func onChange(colorTheme: ColorTheme) {
+        state.colorTheme = colorTheme
+        UserDefaultsClient.colorTheme = colorTheme
     }
 }

@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import UIKit
 
 @MainActor final class SpeedmeterPresenter: ObservableObject {
     @MainActor struct ViewState  {
@@ -14,9 +15,10 @@ import Foundation
         fileprivate(set) var unit: Unit
         fileprivate(set) var maximumSpeed: Int
         fileprivate(set) var isSensorActive = true
+        fileprivate(set) var colorTheme: ColorTheme
         
         var accelerationSpeed: Double {
-            let speed = speedmeterItem.accelerationSpeed.convert(to: unit)
+            let speed = speedmeterItem.accelerationSpeed.convertFromMPS(to: unit)
             return abs(speed)
         }
         
@@ -25,7 +27,14 @@ import Foundation
         }
         
         var measurementMethod: String {
-            SpeedCalculator.isGpsAvailable(speedmeterItem.gpsSpeed) ? "加速度 + GPS" : "加速度"
+            let accelerationText = String(localized: "acceleration_title")
+            let gpsText = "GPS"
+            return SpeedCalculator.isGpsAvailable(speedmeterItem.gpsSpeed) ?
+            (accelerationText + " + " + gpsText) : accelerationText
+        }
+        
+        var accelerationState: String {
+            return speedmeterItem.accerationState.name
         }
     }
     
@@ -35,7 +44,7 @@ import Foundation
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        state = .init(unit: .kiloPerHour, maximumSpeed: 0)
+        state = .init(unit: .kilometerPerHour, maximumSpeed: 0, colorTheme: .auto)
         let accelerationSensor = AccelerationSensor()
         let gpsSensor = GpsSensor()
         usecase = SpeedmeterUsecase(accelerationSensor: accelerationSensor,
@@ -45,12 +54,22 @@ import Foundation
     func onAppear() {
         state.unit = UserDefaultsClient.unit
         state.maximumSpeed = UserDefaultsClient.maximumSpeed
+        state.colorTheme = UserDefaultsClient.colorTheme
         
         usecase.setup()
         usecase.updateSpeedmeter.receive(on: RunLoop.main).sink { [weak self] speedmeterItem in
             self?.state.speedmeterItem = speedmeterItem
         }.store(in: &cancellables)
         usecase.start()
+        
+        // Speedmeter画面表示時はスリープにしない
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        UserDefaultsClient.incrementNumberOfSpeedmeterDisplayed()
+    }
+    
+    func onDisappear() {
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     func onTapStartStop() {

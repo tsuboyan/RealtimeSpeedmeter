@@ -9,14 +9,6 @@ import Foundation
 import CoreMotion
 
 enum SpeedCalculator {
-    struct DeviceMotion {
-        let x: Double
-        let y: Double
-        let z: Double
-        let roll: Double
-        let pitch: Double
-    }
-    
     /// 3軸成分から水平1軸成分のみを取り出す
     static func calculateHorizontalAcceleration(_ motion: CMDeviceMotion) -> Double {
         // 単位を度数に変換
@@ -52,15 +44,15 @@ enum SpeedCalculator {
         return horizontalComponent * (motion.userAcceleration.z > 0 ? 1 : -1)
     }
     
-    /// 平滑化フィルタ
+    /// 簡易平滑化フィルタ
     static func smooth(current: Double, previous: Double) -> Double {
         current * 0.2 + previous * 0.8
     }
     
-    /// 加速度(acc)を元に現在速度(currentSpeed)からdelta秒後の速度(NextSpeed)を計算する
-    static func calculateNextSpeed(currentSpeed: Double, acceleration: Double, delta: Double) -> Double {
+    /// 加速度を元に現在の速度を計算する
+    static func calculateSpeed(previousSpeed: Double, acceleration: Double, delta: Double) -> Double {
         let gravitationalAcceleration = 9.80665
-        return  currentSpeed + (acceleration * delta * gravitationalAcceleration)
+        return previousSpeed + (acceleration * delta * gravitationalAcceleration)
     }
 }
 
