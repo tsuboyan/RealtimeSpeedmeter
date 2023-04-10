@@ -23,23 +23,6 @@ struct GpsParams {
     }
 }
 
-enum AccelerationState {
-    /// 加速中
-    case accelerating
-    /// 減速中
-    case decelerating
-    /// 巡航中・停止中
-    case stay
-    
-    var name: String {
-        switch self {
-        case .accelerating: return "Ac"
-        case .decelerating: return "De"
-        case .stay: return "Stay"
-        }
-    }
-}
-
 final class SpeedmeterUsecase {
     
     let updateSpeedmeter = PassthroughSubject<SpeedmeterItem, Never>()
@@ -147,11 +130,8 @@ final class SpeedmeterUsecase {
             self.accelerationParam.send((acceleration: acceleration, speed: mergedSpeed, accState: self.accerationState))
             
             // 一定秒数間停止していたら速度をリセットする
-            if isStopping {
-                self.stoppingCounter += 1
-            } else {
-                self.stoppingCounter = 0
-            }
+            self.stoppingCounter = isStopping ? self.stoppingCounter + 1 : 0
+
             if self.stoppingCounter > Int(Constants.fps * Constants.stoppingResetInterval) {
                 self.reset()
                 self.stoppingCounter = 0

@@ -11,6 +11,7 @@
 		1C6F0A2B29DC660700DB45B8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F0A2A29DC660700DB45B8 /* Constants.swift */; };
 		1C6F0A2F29DD984700DB45B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3129DD984700DB45B8 /* Localizable.strings */; };
 		1C6F0A3429DDA7D500DB45B8 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3329DDA7D500DB45B8 /* ColorTheme.swift */; };
+		1C6F0A3829E45AAD00DB45B8 /* AccelerationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3729E45AAD00DB45B8 /* AccelerationState.swift */; };
 		1C90D37C297EC49D00112BBC /* RealtimeSpeedmeterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */; };
 		1C90D37E297EC49D00112BBC /* SpeedmeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */; };
 		1C90D380297EC49E00112BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C90D37F297EC49E00112BBC /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		1C6F0A3029DD984700DB45B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1C6F0A3229DD985800DB45B8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1C6F0A3329DDA7D500DB45B8 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
+		1C6F0A3729E45AAD00DB45B8 /* AccelerationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationState.swift; sourceTree = "<group>"; };
 		1C90D378297EC49D00112BBC /* RealtimeSpeedmeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealtimeSpeedmeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeSpeedmeterApp.swift; sourceTree = "<group>"; };
 		1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			children = (
 				D7537B8129A65AF900A20289 /* CSVLogger */,
 				D72A453829BA1F3200A34355 /* LocalStorage */,
+				1C5F6DCA298956640061E5FE /* Sensors */,
 				1C5F6DD529990AA30061E5FE /* Settings */,
 				1C5F6DCC298956B80061E5FE /* Speedmeter */,
 			);
@@ -118,6 +121,7 @@
 		1C6F0A3529DDAC7900DB45B8 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				1C6F0A3729E45AAD00DB45B8 /* AccelerationState.swift */,
 				1C6F0A3329DDA7D500DB45B8 /* ColorTheme.swift */,
 				D710621D29B4B06400B21570 /* Unit.swift */,
 			);
@@ -157,7 +161,6 @@
 				D710621B29B4AFAC00B21570 /* Commons */,
 				1C5F6DCB298956950061E5FE /* Features */,
 				1C90D381297EC49E00112BBC /* Preview Content */,
-				1C5F6DCA298956640061E5FE /* Sensors */,
 			);
 			path = RealtimeSpeedmeter;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				1C90D3942985471F00112BBC /* CSVLogger.swift in Sources */,
 				D72A453A29BA1F6000A34355 /* UserDefaultsClient.swift in Sources */,
 				1C90D3902984AA5000112BBC /* SpeedmeterGaugeView.swift in Sources */,
+				1C6F0A3829E45AAD00DB45B8 /* AccelerationState.swift in Sources */,
 				1C90D37E297EC49D00112BBC /* SpeedmeterView.swift in Sources */,
 				1C90D38E297EE7C100112BBC /* SpeedCalculator.swift in Sources */,
 				D722891E29B5FAEB00CFF02D /* SpeedmeterItem.swift in Sources */,

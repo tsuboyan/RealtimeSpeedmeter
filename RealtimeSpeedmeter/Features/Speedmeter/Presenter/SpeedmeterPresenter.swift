@@ -12,10 +12,11 @@ import UIKit
 @MainActor final class SpeedmeterPresenter: ObservableObject {
     @MainActor struct ViewState  {
         fileprivate var speedmeterItem = SpeedmeterItem()
-        fileprivate(set) var unit: Unit
-        fileprivate(set) var maximumSpeed: Int
+        fileprivate(set) var unit: Unit = .kilometerPerHour
+        fileprivate(set) var maximumSpeed: Int = 0
         fileprivate(set) var isSensorActive = true
-        fileprivate(set) var colorTheme: ColorTheme
+        fileprivate(set) var colorTheme: ColorTheme = .auto
+        fileprivate(set) var isFirstDisplayed = false
         
         var accelerationSpeed: Double {
             let speed = speedmeterItem.accelerationSpeed.convertFromMPS(to: unit)
@@ -44,7 +45,7 @@ import UIKit
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        state = .init(unit: .kilometerPerHour, maximumSpeed: 0, colorTheme: .auto)
+        state = .init()
         let accelerationSensor = AccelerationSensor()
         let gpsSensor = GpsSensor()
         usecase = SpeedmeterUsecase(accelerationSensor: accelerationSensor,
@@ -62,7 +63,7 @@ import UIKit
         }.store(in: &cancellables)
         usecase.start()
         
-        // Speedmeter画面表示時はスリープにしない
+        // Speedmeter画面を表示している間スリープにしない
         UIApplication.shared.isIdleTimerDisabled = true
         
         UserDefaultsClient.incrementNumberOfSpeedmeterDisplayed()
@@ -72,15 +73,17 @@ import UIKit
         UIApplication.shared.isIdleTimerDisabled = false
     }
     
-    func onTapStartStop() {
-        if state.isSensorActive {
-            usecase.stop()
-            state.isSensorActive = false
-        } else {
-            usecase.start()
-            state.isSensorActive = true
+    #if DEBUG
+        func onTapStartStop() {
+            if state.isSensorActive {
+                usecase.stop()
+                state.isSensorActive = false
+            } else {
+                usecase.start()
+                state.isSensorActive = true
+            }
         }
-    }
+    #endif
     
     func onTapReset() {
         usecase.reset()
