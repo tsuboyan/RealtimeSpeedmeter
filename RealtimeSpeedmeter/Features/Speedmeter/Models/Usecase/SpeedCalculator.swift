@@ -54,11 +54,29 @@ enum SpeedCalculator {
         let gravitationalAcceleration = 9.80665
         return previousSpeed + (acceleration * delta * gravitationalAcceleration)
     }
+    
+    /// 加減速状態を元に、ACC速度(加速度から計算した速度)と、GPS速度を組み合わせる
+    static func calculateSpeed(accelerationSpeed: Double, gpsSpeed: Double, accerationState: AccelerationState) -> Double {
+        // GPS速度が利用できない場合はACC速度(加速度から算出した速度)を使う
+        if isGpsUnavailable(gpsSpeed) { return accelerationSpeed }
+        
+        // GPSも利用できる場合、
+        // 加速中はGPS速度とACC速度の大きい方、減速中は小さい方の速度を採用する
+        // 加減速していない場合(stay時)はGPS速度を使う
+        switch accerationState {
+        case .accelerating:
+            return max(accelerationSpeed, gpsSpeed)
+        case .decelerating:
+            return min(accelerationSpeed, gpsSpeed)
+        case .stay:
+            return gpsSpeed
+        }
+    }
 }
 
 extension SpeedCalculator {
-    static func isGpsAvailable(_ speedGps: Double) -> Bool {
-        return speedGps != -1
+    static func isGpsUnavailable(_ speedGps: Double) -> Bool {
+        return speedGps == -1
     }
     
     /// 端末の動きが止まっているか (加速度の標準偏差≒0で停止判断)

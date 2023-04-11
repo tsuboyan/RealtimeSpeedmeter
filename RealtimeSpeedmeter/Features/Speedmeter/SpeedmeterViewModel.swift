@@ -1,5 +1,5 @@
 //
-//  SpeedmeterPresenter.swift
+//  SpeedmeterViewModel.swift
 //  RealtimeSpeedmeter
 //
 //  Created by Atsushi Otsubo on 2023/01/23.
@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import UIKit
 
-@MainActor final class SpeedmeterPresenter: ObservableObject {
+@MainActor final class SpeedmeterViewModel: ObservableObject {
     @MainActor struct ViewState  {
         fileprivate var speedmeterItem = SpeedmeterItem()
         fileprivate(set) var unit: Unit = .kilometerPerHour
@@ -30,18 +30,19 @@ import UIKit
         var measurementMethod: String {
             let accelerationText = String(localized: "acceleration_title")
             let gpsText = "GPS"
-            return SpeedCalculator.isGpsAvailable(speedmeterItem.gpsSpeed) ?
-            (accelerationText + " + " + gpsText) : accelerationText
+            return SpeedCalculator.isGpsUnavailable(speedmeterItem.gpsSpeed) ? accelerationText : (accelerationText + " + " + gpsText)
         }
         
-        var accelerationState: String {
-            return speedmeterItem.accerationState.name
-        }
+        #if DEBUG
+            var accelerationState: String {
+                return speedmeterItem.accerationState.name
+            }
+        #endif
     }
     
     @Published private(set) var state: ViewState
-    let usecase: SpeedmeterUsecase
     
+    private let usecase: SpeedmeterUsecase
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
@@ -49,16 +50,18 @@ import UIKit
         let accelerationSensor = AccelerationSensor()
         let gpsSensor = GpsSensor()
         usecase = SpeedmeterUsecase(accelerationSensor: accelerationSensor,
-                                         gpsSensor: gpsSensor)
+                                    gpsSensor: gpsSensor)
     }
-    
+}
+
+extension SpeedmeterViewModel {
     func onAppear() {
         state.unit = UserDefaultsClient.unit
         state.maximumSpeed = UserDefaultsClient.maximumSpeed
         state.colorTheme = UserDefaultsClient.colorTheme
         
         usecase.setup()
-        usecase.updateSpeedmeter.receive(on: RunLoop.main).sink { [weak self] speedmeterItem in
+        usecase.speedmeterItemSubject.receive(on: RunLoop.main).sink { [weak self] speedmeterItem in
             self?.state.speedmeterItem = speedmeterItem
         }.store(in: &cancellables)
         usecase.start()

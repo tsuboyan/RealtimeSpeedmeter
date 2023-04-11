@@ -25,7 +25,7 @@ final class GpsSensor: NSObject {
     func start() {
         locationManager.startUpdatingLocation()
     }
-
+    
     func stop() {
         locationManager.stopUpdatingLocation()
     }
