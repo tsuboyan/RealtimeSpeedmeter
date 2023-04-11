@@ -14,9 +14,9 @@ import UIKit
         fileprivate var speedmeterItem = SpeedmeterItem()
         fileprivate(set) var unit: Unit = .kilometerPerHour
         fileprivate(set) var maximumSpeed: Int = 0
-        fileprivate(set) var isSensorActive = true
         fileprivate(set) var colorTheme: ColorTheme = .auto
         fileprivate(set) var isFirstDisplayed = false
+        fileprivate(set) var isSensorActive = true
         
         var accelerationSpeed: Double {
             let speed = speedmeterItem.accelerationSpeed.convertFromMPS(to: unit)
@@ -73,6 +73,10 @@ import UIKit
         UIApplication.shared.isIdleTimerDisabled = false
     }
     
+    func onTapReset() {
+        usecase.reset()
+    }
+    
     #if DEBUG
         func onTapStartStop() {
             if state.isSensorActive {
@@ -84,8 +88,4 @@ import UIKit
             }
         }
     #endif
-    
-    func onTapReset() {
-        usecase.reset()
-    }
 }

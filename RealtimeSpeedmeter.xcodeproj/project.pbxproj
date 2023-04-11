@@ -28,6 +28,8 @@
 		D7537B8329A65B0E00A20289 /* CSVLogger+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7537B8229A65B0E00A20289 /* CSVLogger+Extension.swift */; };
 		D7537B8629A662FB00A20289 /* SpeedmeterUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7537B8529A662FB00A20289 /* SpeedmeterUsecase.swift */; };
 		D76CCE3929AE15C50027B416 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CCE3829AE15C50027B416 /* SettingsPresenter.swift */; };
+		D784C57229E4DD8F006A7E3E /* SpeedmeterUsecase+RingArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D784C57129E4DD8F006A7E3E /* SpeedmeterUsecase+RingArray.swift */; };
+		D784C57429E4DE6A006A7E3E /* GpsParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = D784C57329E4DE6A006A7E3E /* GpsParams.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		D7537B8229A65B0E00A20289 /* CSVLogger+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSVLogger+Extension.swift"; sourceTree = "<group>"; };
 		D7537B8529A662FB00A20289 /* SpeedmeterUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterUsecase.swift; sourceTree = "<group>"; };
 		D76CCE3829AE15C50027B416 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		D784C57129E4DD8F006A7E3E /* SpeedmeterUsecase+RingArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpeedmeterUsecase+RingArray.swift"; sourceTree = "<group>"; };
+		D784C57329E4DE6A006A7E3E /* GpsParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpsParams.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				D722891D29B5FAEB00CFF02D /* SpeedmeterItem.swift */,
+				D784C57329E4DE6A006A7E3E /* GpsParams.swift */,
 				D7EE7B5929CD2CAA00D861EE /* Presenter */,
 				D7EE7B5729CD2C7700D861EE /* Usecase */,
 				D7EE7B5829CD2C9300D861EE /* View */,
@@ -204,6 +209,7 @@
 			children = (
 				1C90D38D297EE7C100112BBC /* SpeedCalculator.swift */,
 				D7537B8529A662FB00A20289 /* SpeedmeterUsecase.swift */,
+				D784C57129E4DD8F006A7E3E /* SpeedmeterUsecase+RingArray.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -301,9 +307,11 @@
 				D710621E29B4B06400B21570 /* Unit.swift in Sources */,
 				1C90D3942985471F00112BBC /* CSVLogger.swift in Sources */,
 				D72A453A29BA1F6000A34355 /* UserDefaultsClient.swift in Sources */,
+				D784C57429E4DE6A006A7E3E /* GpsParams.swift in Sources */,
 				1C90D3902984AA5000112BBC /* SpeedmeterGaugeView.swift in Sources */,
 				1C6F0A3829E45AAD00DB45B8 /* AccelerationState.swift in Sources */,
 				1C90D37E297EC49D00112BBC /* SpeedmeterView.swift in Sources */,
+				D784C57229E4DD8F006A7E3E /* SpeedmeterUsecase+RingArray.swift in Sources */,
 				1C90D38E297EE7C100112BBC /* SpeedCalculator.swift in Sources */,
 				D722891E29B5FAEB00CFF02D /* SpeedmeterItem.swift in Sources */,
 				1C6F0A2B29DC660700DB45B8 /* Constants.swift in Sources */,

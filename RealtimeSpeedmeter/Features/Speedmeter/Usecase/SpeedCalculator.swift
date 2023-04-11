@@ -60,4 +60,10 @@ extension SpeedCalculator {
     static func isGpsAvailable(_ speedGps: Double) -> Bool {
         return speedGps != -1
     }
+    
+    /// 端末の動きが止まっているか (加速度の標準偏差≒0で停止判断)
+    /// センサの特性上運動が停止しても加速度はすぐには0にならないが、振動は収まるため標準偏差の値を使って判定する
+    static func isStopping(accelerationStdev: Double) -> Bool {
+        return accelerationStdev < Constants.stoppingStdevThresh
+    }
 }
