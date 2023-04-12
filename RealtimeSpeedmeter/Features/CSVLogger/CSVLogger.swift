@@ -19,7 +19,7 @@ final class CSVLogger {
     func set(outputDirectory: String) {
         self.outputDirectory = outputDirectory
     }
-        
+    
     /// CSVファイルのヘッダ(1行目)をセット
     func set(header: [String]) {
         self.header = header

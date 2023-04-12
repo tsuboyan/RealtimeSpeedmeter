@@ -8,7 +8,7 @@
 import CoreLocation
 import Combine
 
-final class GpsSensor: NSObject, CLLocationManagerDelegate {
+final class GpsSensor: NSObject {
     private let locationManager: CLLocationManager = .init()
     let updateLocation = PassthroughSubject<CLLocation, Never>()
     
@@ -22,14 +22,16 @@ final class GpsSensor: NSObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
     }
     
-    func startGpsSensor() {
+    func start() {
         locationManager.startUpdatingLocation()
     }
-
-    func stopGpsSensor() {
+    
+    func stop() {
         locationManager.stopUpdatingLocation()
     }
-    
+}
+
+extension GpsSensor: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last,
               CLLocationCoordinate2DIsValid(newLocation.coordinate) else {
