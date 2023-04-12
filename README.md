@@ -8,16 +8,18 @@
 </a>
 
 ## 概要
-RealtimeSpeedmterはiPhone内蔵のGPSと加速度センサの値を利用することによって、他の速度計アプリよりも正確でリアルタイムな速度計測を目指した新しい速度計アプリです。
+- RealtimeSpeedmterはiPhone内蔵のGPSと加速度センサの値を利用することによって、他の速度計アプリよりも正確でリアルタイムな速度計測を目指した新しい速度計アプリです。
 
+## 速度計算ロジックについて
+- [wiki](https://github.com/tsuboyan/RealtimeSpeedmeter/wiki)に記載しています
 
 ## 開発環境
-Xcode 14.2 (Swift 5.7.2)
+- Xcode 14.2 (Swift 5.7.2)
 
 ## 構成
-UIの実装: SwiftUI
-アーキテクチャ: MVVM
-ブランチモデル: GitHub flow
+- UIの実装: SwiftUI
+- アーキテクチャ: MVVM
+- ブランチモデル: GitHub flow
 
 ## セットアップ
 ```
