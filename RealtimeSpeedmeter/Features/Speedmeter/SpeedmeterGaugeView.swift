@@ -38,7 +38,9 @@ struct SpeedometerGaugeStyle: GaugeStyle {
         self.reset = reset
     }
     
-    private var leafGreenGradient = LinearGradient(gradient: Gradient(colors: [ Color(red: 85/255, green: 160/255, blue: 57/255), Color(red: 181/255, green: 216/255, blue: 65/255) ]), startPoint: .trailing, endPoint: .leading)
+    private let leafGreenGradient = LinearGradient(gradient: Gradient(colors: [Color("green"), Color("leaf_green")]),
+                                                   startPoint: .trailing,
+                                                   endPoint: .leading)
     
     func makeBody(configuration: Configuration) -> some View {
         ZStack {
