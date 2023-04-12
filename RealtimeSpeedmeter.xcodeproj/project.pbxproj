@@ -13,9 +13,10 @@
 		1C6F0A3429DDA7D500DB45B8 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3329DDA7D500DB45B8 /* ColorTheme.swift */; };
 		1C6F0A3829E45AAD00DB45B8 /* AccelerationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3729E45AAD00DB45B8 /* AccelerationState.swift */; };
 		1C6F0A3C29E598CF00DB45B8 /* AccelerationParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3B29E598CF00DB45B8 /* AccelerationParams.swift */; };
+		1C6F0A3E29E708F000DB45B8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3D29E708F000DB45B8 /* Colors.xcassets */; };
 		1C90D37C297EC49D00112BBC /* RealtimeSpeedmeterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */; };
 		1C90D37E297EC49D00112BBC /* SpeedmeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */; };
-		1C90D380297EC49E00112BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C90D37F297EC49E00112BBC /* Assets.xcassets */; };
+		1C90D380297EC49E00112BBC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C90D37F297EC49E00112BBC /* Images.xcassets */; };
 		1C90D383297EC49E00112BBC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C90D382297EC49E00112BBC /* Preview Assets.xcassets */; };
 		1C90D38A297ED31300112BBC /* SpeedmeterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D389297ED31300112BBC /* SpeedmeterViewModel.swift */; };
 		1C90D38C297ED4CA00112BBC /* AccelerationSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */; };
@@ -42,10 +43,11 @@
 		1C6F0A3329DDA7D500DB45B8 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		1C6F0A3729E45AAD00DB45B8 /* AccelerationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationState.swift; sourceTree = "<group>"; };
 		1C6F0A3B29E598CF00DB45B8 /* AccelerationParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationParams.swift; sourceTree = "<group>"; };
+		1C6F0A3D29E708F000DB45B8 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		1C90D378297EC49D00112BBC /* RealtimeSpeedmeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealtimeSpeedmeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeSpeedmeterApp.swift; sourceTree = "<group>"; };
 		1C90D37D297EC49D00112BBC /* SpeedmeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterView.swift; sourceTree = "<group>"; };
-		1C90D37F297EC49E00112BBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1C90D37F297EC49E00112BBC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1C90D382297EC49E00112BBC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1C90D389297ED31300112BBC /* SpeedmeterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedmeterViewModel.swift; sourceTree = "<group>"; };
 		1C90D38B297ED4CA00112BBC /* AccelerationSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationSensor.swift; sourceTree = "<group>"; };
@@ -118,7 +120,8 @@
 		1C6F0A2C29DD97F200DB45B8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				1C90D37F297EC49E00112BBC /* Assets.xcassets */,
+				1C90D37F297EC49E00112BBC /* Images.xcassets */,
+				1C6F0A3D29E708F000DB45B8 /* Colors.xcassets */,
 				1C6F0A3129DD984700DB45B8 /* Localizable.strings */,
 			);
 			path = Assets;
@@ -294,8 +297,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C90D383297EC49E00112BBC /* Preview Assets.xcassets in Resources */,
+				1C6F0A3E29E708F000DB45B8 /* Colors.xcassets in Resources */,
 				1C6F0A2F29DD984700DB45B8 /* Localizable.strings in Resources */,
-				1C90D380297EC49E00112BBC /* Assets.xcassets in Resources */,
+				1C90D380297EC49E00112BBC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

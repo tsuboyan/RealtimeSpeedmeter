@@ -14,7 +14,7 @@
 - [wiki](https://github.com/tsuboyan/RealtimeSpeedmeter/wiki)に記載しています
 
 ## 開発環境
-Xcode 14.2 (Swift 5.7.2)
+- Xcode 14.2 (Swift 5.7.2)
 
 ## 構成
 - UIの実装: SwiftUI
