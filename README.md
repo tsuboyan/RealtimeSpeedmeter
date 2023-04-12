@@ -1,5 +1,9 @@
 # RealtimeSpeedmeter
 
+
+<img src="https://user-images.githubusercontent.com/13012547/231475929-f5ad9dcc-b1eb-4f64-9eef-94e19b7575a5.png" width="200">
+
+
 ## 概要
 RealtimeSpeedmterはiPhone内蔵のGPSと加速度センサの値を利用することによって、他の速度計アプリよりも正確でリアルタイムな速度計測を目指した新しい速度計アプリです。
 
