@@ -16,7 +16,7 @@ final class AccelerationSensor {
         motionManager = CMMotionManager()
     }
     
-    func startAccelerometer(delta: Double) {
+    func start(delta: Double) {
         if motionManager.isDeviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = delta // sec
             motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { [weak self] (motion: CMDeviceMotion?, error: Error?) in
@@ -26,7 +26,7 @@ final class AccelerationSensor {
         }
     }
     
-    func stopAccelerometer() {
+    func stop() {
         motionManager.stopDeviceMotionUpdates()
     }
 }

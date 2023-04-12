@@ -39,22 +39,22 @@ struct SpeedometerGaugeStyle: GaugeStyle {
     }
     
     private var leafGreenGradient = LinearGradient(gradient: Gradient(colors: [ Color(red: 85/255, green: 160/255, blue: 57/255), Color(red: 181/255, green: 216/255, blue: 65/255) ]), startPoint: .trailing, endPoint: .leading)
- 
+    
     func makeBody(configuration: Configuration) -> some View {
         ZStack {
             Circle()
                 .foregroundColor(Color(.systemGray6))
-
+            
             Circle()
                 .trim(from: 0, to: 0.75 * configuration.value)
                 .stroke(leafGreenGradient, lineWidth: 20)
                 .rotationEffect(.degrees(135))
- 
+            
             Circle()
                 .trim(from: 0, to: 0.75)
                 .stroke(Color.black, style: StrokeStyle(lineWidth: 10, lineCap: .butt, lineJoin: .round, dash: [1, 34], dashPhase: 0.0))
                 .rotationEffect(.degrees(135))
- 
+            
             VStack {
                 configuration.currentValueLabel
                     .font(.system(size: 40, weight: .bold, design: .rounded))
@@ -70,7 +70,7 @@ struct SpeedometerGaugeStyle: GaugeStyle {
                     Text("set to 0")
                 }
             }
- 
+            
         }
     }
 }

@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @ObservedObject private(set) var presenter = SettingsPresenter()
+    @ObservedObject private(set) var viewModel = SettingsViewModel()
     
     var body: some View {
         NavigationView {
             Form {
                 Picker(selection: Binding(
-                    get: { presenter.state.unit.rawValue },
+                    get: { viewModel.state.unit.rawValue },
                     set: { newValue in
-                        presenter.onChange(unit: Unit(rawValue: newValue)!)
+                        viewModel.onChange(unit: Unit(rawValue: newValue)!)
                     }), label: Text("unit_title")) {
                         ForEach(0 ..< Unit.allCases.count, id: \.self) { num in
                             Text(Unit.allCases[num].name)
@@ -27,14 +27,14 @@ struct SettingsView: View {
                     HStack {
                         Text("speedmeter_upper_limit_title")
                         Spacer()
-                        Text("\(Int(presenter.state.maximumSpeed)) \(presenter.state.unit.name)")
+                        Text("\(Int(viewModel.state.maximumSpeed)) \(viewModel.state.unit.name)")
                     }
                     HStack {
                         Text("\(Int(Constants.maximumSpeedLowerLimit))")
                         Slider(value: Binding(
-                            get: { Double(presenter.state.maximumSpeed) },
+                            get: { Double(viewModel.state.maximumSpeed) },
                             set: { newValue in
-                                presenter.onChange(maximumSpeed: Int(newValue))
+                                viewModel.onChange(maximumSpeed: Int(newValue))
                             }), in: (Constants.maximumSpeedLowerLimit...Constants.maximumSpeedUpperLimit),
                                step: Constants.maximumSpeedConfigurableInterval)
                         Text("\(Int(Constants.maximumSpeedUpperLimit))")
@@ -42,10 +42,9 @@ struct SettingsView: View {
                 }
                 
                 Picker(selection: Binding(
-                    get: { presenter.state.colorTheme.rawValue },
+                    get: { viewModel.state.colorTheme.rawValue },
                     set: { newValue in
-                        presenter.onChange(colorTheme: ColorTheme(rawValue: newValue)!)
-                        
+                        viewModel.onChange(colorTheme: ColorTheme(rawValue: newValue)!)
                     }), label: Text("theme_title")) {
                         ForEach(0 ..< ColorTheme.allCases.count, id: \.self) { num in
                             Text(ColorTheme.allCases[num].name)

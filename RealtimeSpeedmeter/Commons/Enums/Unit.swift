@@ -33,6 +33,7 @@ enum Unit: Int, CaseIterable {
 extension Double {
     /// 速度の単位変換
     func convertFromMPS(to unit: Unit) -> Double {
+        // m/s(mps)から近似値で変換する
         switch unit {
         case .kilometerPerHour, .kilometerSlashHour: return self * 3.6
         case .milePerHour: return self * 2.237

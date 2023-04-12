@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct SpeedmeterView: View {
-    @ObservedObject private(set) var presenter: SpeedmeterPresenter
+    @ObservedObject private(set) var viewModel: SpeedmeterViewModel
     @State private var showingTutorialAlert = false
     
     init() {
-        presenter = SpeedmeterPresenter()
+        viewModel = SpeedmeterViewModel()
     }
     
     var body: some View {
@@ -23,9 +23,9 @@ struct SpeedmeterView: View {
             #if DEBUG
                 HStack {
                     Button {
-                        presenter.onTapStartStop()
+                        viewModel.onTapStartStop()
                     } label: {
-                        Text(presenter.state.isSensorActive ? "ストップ" : "スタート")
+                        Text(viewModel.state.isSensorActive ? "ストップ" : "スタート")
                     }
                     .buttonStyle(.bordered)
                 }
@@ -41,17 +41,17 @@ struct SpeedmeterView: View {
                             .bold()
                             .foregroundColor(.gray)
                         Spacer()
-                        Text("\(presenter.state.maximumSpeed)")
+                        Text("\(viewModel.state.maximumSpeed)")
                             .font(.system(.body, design: .rounded))
                             .bold()
                             .foregroundColor(.gray)
-                            
+                        
                     }
                 }.frame(width: width - 80, height: width - 80, alignment: .bottom)
-                SpeedmeterGaugeView(maximumSpeed: Double(presenter.state.maximumSpeed),
-                                    currentSpeed: presenter.state.accelerationSpeed,
-                                    unitName: presenter.state.unit.name,
-                                    reset: { presenter.onTapReset() })
+                SpeedmeterGaugeView(maximumSpeed: Double(viewModel.state.maximumSpeed),
+                                    currentSpeed: viewModel.state.accelerationSpeed,
+                                    unitName: viewModel.state.unit.name,
+                                    reset: { viewModel.onTapReset() })
                 .padding()
             }
             
@@ -61,7 +61,7 @@ struct SpeedmeterView: View {
                     Text("acceleration_title")
                         .bold()
                         .font(.title3)
-                    Text(String(format: "%.2f G", presenter.state.acceleration))
+                    Text(String(format: "%.2f G", viewModel.state.acceleration))
                         .font(.body)
                 }
                 .padding()
@@ -71,7 +71,7 @@ struct SpeedmeterView: View {
                     Text("measurement_method_title")
                         .bold()
                         .font(.title3)
-                    Text(presenter.state.measurementMethod)
+                    Text(viewModel.state.measurementMethod)
                         .font(.body)
                 }
                 .padding()
@@ -82,7 +82,7 @@ struct SpeedmeterView: View {
                         Text("加減速")
                             .bold()
                             .font(.title3)
-                        Text(presenter.state.accelerationState)
+                        Text(viewModel.state.accelerationState)
                             .font(.body)
                     }
                     .padding()
@@ -96,9 +96,9 @@ struct SpeedmeterView: View {
             .padding()
             .onAppear {
                 if UserDefaultsClient.isFirstDisplayed { showingTutorialAlert = true }
-                presenter.onAppear()
+                viewModel.onAppear()
             }
-            .onDisappear { presenter.onDisappear() }
+            .onDisappear { viewModel.onDisappear() }
         
         return NavigationStack {
             contents
@@ -110,7 +110,7 @@ struct SpeedmeterView: View {
                     }
                 }
             }
-            .preferredColorScheme(presenter.state.colorTheme.scheme)
+            .preferredColorScheme(viewModel.state.colorTheme.scheme)
             .alert("tutorial_title", isPresented: $showingTutorialAlert) {
                 Button("OK") { showingTutorialAlert = false }
             } message: {
