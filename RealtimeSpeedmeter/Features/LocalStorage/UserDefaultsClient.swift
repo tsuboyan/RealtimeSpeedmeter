@@ -8,7 +8,7 @@
 import Foundation
 
 enum UserDefaultsClient {
-    private enum IntItem: String {
+    enum IntItem: String {
         case unit
         case maximumSpeed
         case colorTheme
