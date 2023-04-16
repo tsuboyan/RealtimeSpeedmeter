@@ -110,7 +110,6 @@ struct SpeedmeterView: View {
                     }
                 }
             }
-            .preferredColorScheme(viewModel.state.colorTheme.scheme)
             .alert("tutorial_title", isPresented: $showingTutorialAlert) {
                 Button("OK") { showingTutorialAlert = false }
             } message: {

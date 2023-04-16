@@ -14,7 +14,6 @@ import UIKit
         fileprivate var speedmeterItem = SpeedmeterItem()
         fileprivate(set) var unit: Unit = .kilometerPerHour
         fileprivate(set) var maximumSpeed: Int = 0
-        fileprivate(set) var colorTheme: ColorTheme = .auto
         fileprivate(set) var isFirstDisplayed = false
         fileprivate(set) var isSensorActive = true
         
@@ -58,7 +57,6 @@ extension SpeedmeterViewModel {
     func onAppear() {
         state.unit = UserDefaultsClient.unit
         state.maximumSpeed = UserDefaultsClient.maximumSpeed
-        state.colorTheme = UserDefaultsClient.colorTheme
         
         usecase.setup()
         usecase.speedmeterItemSubject.receive(on: RunLoop.main).sink { [weak self] speedmeterItem in
