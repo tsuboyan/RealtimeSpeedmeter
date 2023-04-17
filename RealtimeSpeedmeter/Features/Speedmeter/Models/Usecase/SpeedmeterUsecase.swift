@@ -101,31 +101,28 @@ private extension SpeedmeterUsecase {
         let elapsedTime = Date().timeIntervalSince(updatedDate)
         
         let horizontalAcceleration = SpeedCalculator.calculateHorizontalAcceleration(motion)
+        let acceleration = SpeedCalculator.smooth(current: horizontalAcceleration,
+                                                  previous: accelerationParamsSubject.value.acceleration)
+        // 停止判定
         unsmoothedAccelerationRingArray.append(horizontalAcceleration)
         let isStopping = SpeedCalculator.isStopping(accelerationStdev: unsmoothedAccelerationRingArray.stdev)
-        let acceleration = SpeedCalculator.smooth(current: horizontalAcceleration, previous: accelerationParamsSubject.value.acceleration)
-        let previousAccelerationSpeed = accelerationParamsSubject.value.speed
-        let accelerationSpeed = isStopping ? previousAccelerationSpeed : SpeedCalculator.calculateSpeed(
-            previousSpeed: previousAccelerationSpeed,
-            acceleration: acceleration,
-            delta: elapsedTime)
-        
-        // 停止判定
         stoppingCounter = isStopping ? stoppingCounter + 1 : 0
-        // 一定時間停止(stoppingCounterが一定のカウントを超え)したら速度をリセットする
-        if stoppingCounter > Int(Constants.fps * Constants.stoppingResetInterval) {
-            reset()
-        }
+        
+        // 速度の計算
+        let accelerationSpeed = SpeedCalculator.calculateSpeed(previousSpeed: accelerationParamsSubject.value.speed,
+                                                               acceleration: acceleration,
+                                                               delta: elapsedTime,
+                                                               stoppingCounter: stoppingCounter)
         // 加減速の判定
         let accerationState = decideAccelerationState(acceleration)
         // 加減速の状態(accerationState)を元にACC速度とGPS速度を組み合わせて最終的な速度を決定
-        let speed = SpeedCalculator.calculateSpeed(accelerationSpeed: accelerationSpeed,
+        let combinedSpeed = SpeedCalculator.combineSpeed(accelerationSpeed: accelerationSpeed,
                                                    gpsSpeed: gpsParamsSubject.value.speed,
                                                    accerationState: accerationState)
         
         accelerationParamsSubject.send(AccelerationParams(
             acceleration: acceleration,
-            speed: speed,
+            speed: combinedSpeed,
             accelerationState: accerationState))
         
         #if DEBUG
@@ -140,7 +137,7 @@ private extension SpeedmeterUsecase {
     }
     
     /// 加速中・減速中・巡航中かの判定
-    func decideAccelerationState(_ acceleration: Double) -> AccelerationState {
+    private func decideAccelerationState(_ acceleration: Double) -> AccelerationState {
         // 加速・減速・巡航状態が指定したフレーム続くことで初めてステートが変化する
         // これにより、ステートが無用に振動するのを防ぐ
         if acceleration > Constants.accelerationStateChangeThresh {

@@ -44,19 +44,31 @@ enum SpeedCalculator {
         return horizontalComponent * (motion.userAcceleration.z > 0 ? 1 : -1)
     }
     
-    /// 簡易平滑化フィルタ
+    /// 簡易平滑化フィルタ (ローパスフィルタ)
     static func smooth(current: Double, previous: Double) -> Double {
         current * 0.2 + previous * 0.8
     }
     
-    /// 加速度を元に現在の速度を計算する
-    static func calculateSpeed(previousSpeed: Double, acceleration: Double, delta: Double) -> Double {
-        let gravitationalAcceleration = 9.80665
-        return previousSpeed + (acceleration * delta * gravitationalAcceleration)
+    /// 停止判定込みで現在の速度を計算する
+    static func calculateSpeed(previousSpeed: Double, acceleration: Double, delta: Double, stoppingCounter: Int) -> Double {
+        switch stoppingCounter {
+        case 0:
+            return calculateCurrentSpeed(previousSpeed, acceleration, delta)
+        case 1..<Constants.stoppingResetIntervalCount:
+            return previousSpeed
+        default:
+            return 0
+        }
+        
+        /// 加速度を元に現在の速度を計算する
+        func calculateCurrentSpeed(_ previousSpeed: Double, _ acceleration: Double, _ delta: Double) -> Double {
+            let gravitationalAcceleration = 9.80665
+            return previousSpeed + (acceleration * delta * gravitationalAcceleration)
+        }
     }
     
     /// 加減速状態を元に、ACC速度(加速度から計算した速度)と、GPS速度を組み合わせる
-    static func calculateSpeed(accelerationSpeed: Double, gpsSpeed: Double, accerationState: AccelerationState) -> Double {
+    static func combineSpeed(accelerationSpeed: Double, gpsSpeed: Double, accerationState: AccelerationState) -> Double {
         // GPS速度が利用できない場合はACC速度(加速度から算出した速度)を使う
         if isGpsUnavailable(gpsSpeed) { return accelerationSpeed }
         
