@@ -5,7 +5,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>スピードの計測のために利用します</string>
+	<string>Used for speed measurement</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>13.3</string>
 	<key>UIFileSharingEnabled</key>
