@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C02C8AD2A42BF7900FF5EE2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C02C8AF2A42BF7900FF5EE2 /* InfoPlist.strings */; };
 		1C5F6DD729990B900061E5FE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F6DD629990B900061E5FE /* SettingsView.swift */; };
 		1C6F0A2B29DC660700DB45B8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F0A2A29DC660700DB45B8 /* Constants.swift */; };
 		1C6F0A2F29DD984700DB45B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C6F0A3129DD984700DB45B8 /* Localizable.strings */; };
@@ -35,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C02C8AE2A42BF7900FF5EE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1C02C8B02A42BF7C00FF5EE2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1C5F6DC929856A200061E5FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1C5F6DD629990B900061E5FE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1C6F0A2A29DC660700DB45B8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -184,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				1C5F6DC929856A200061E5FE /* Info.plist */,
+				1C02C8AF2A42BF7900FF5EE2 /* InfoPlist.strings */,
 				1C90D37B297EC49D00112BBC /* RealtimeSpeedmeterApp.swift */,
 				1C6F0A2C29DD97F200DB45B8 /* Assets */,
 				D710621B29B4AFAC00B21570 /* Commons */,
@@ -300,6 +304,7 @@
 				1C6F0A3E29E708F000DB45B8 /* Colors.xcassets in Resources */,
 				1C6F0A2F29DD984700DB45B8 /* Localizable.strings in Resources */,
 				1C90D380297EC49E00112BBC /* Images.xcassets in Resources */,
+				1C02C8AD2A42BF7900FF5EE2 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +342,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		1C02C8AF2A42BF7900FF5EE2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1C02C8AE2A42BF7900FF5EE2 /* en */,
+				1C02C8B02A42BF7C00FF5EE2 /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		1C6F0A3129DD984700DB45B8 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -488,7 +502,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.std-leaf.RealtimeSpeedmeter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -525,7 +539,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.std-leaf.RealtimeSpeedmeter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
